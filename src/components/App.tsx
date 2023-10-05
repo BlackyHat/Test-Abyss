@@ -41,35 +41,15 @@ function App() {
   ]);
   const [showNested, setShowNested] = useState(false);
 
-  // const addCategory = (label: string) => {
-  //   setCategories((prev) => [...prev, { label, subCategories: [] }]);
-  // };
-  // const addSubCategory = (label: string) => {
-  //   setCategories((prev) => {
-  //     return [...prev, { label, subCategories: [] }];
-  //   });
-  // };
-  // const handleClose = () => {
-  //   setIsOpen(false);
-  //   console.log(categories);
-  // };
-  // const addHandler = () => {
-  //   setIsOpen(true);
-  //   // setCategories((prev) => {
-  //   //   return {
-  //   //     ...prev,
-  //   //     subCategories: [...prev.subCategories, newCategory],
-  //   //   };
-  //   // });
-  //   console.log('ADD');
-  // };
+  const addCategory = (label: string) => {
+    console.log('LABEL', label);
+
+    setCategories((prevCats) => [...prevCats, { label, subCategories: [] }]);
+  };
   const toggleNested = () => {
     setShowNested(!showNested);
   };
 
-  const addCategory = () => {
-    return;
-  };
   return (
     <>
       <div className="wrapper">

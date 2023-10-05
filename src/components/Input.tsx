@@ -2,13 +2,21 @@ import { useState } from 'react';
 interface InputProps {
   onClose: () => void;
   addCategory: (v: string) => void;
+  disabled?: boolean;
+  initValue?: string;
 }
-const Input: React.FC<InputProps> = ({ onClose, addCategory }) => {
-  const [value, setValue] = useState('');
+const Input: React.FC<InputProps> = ({
+  onClose,
+  addCategory,
+  disabled,
+  initValue,
+}) => {
+  const [value, setValue] = useState(initValue || '');
   const handleSave = () => {
     addCategory(value);
     onClose();
   };
+
   return (
     <div className="category_wrapper">
       <input
@@ -19,16 +27,19 @@ const Input: React.FC<InputProps> = ({ onClose, addCategory }) => {
         onAbort={onClose}
         onBlur={onClose}
         name="category name"
+        disabled={disabled}
         onChange={(e) => setValue(e.target.value.trim())}
       />
-      <div className="inputActions">
-        <button onClick={handleSave} className="button save">
-          <span className="buttonIcon">V</span>
-        </button>
-        <button onClick={onClose} className="button remove">
-          <span className="buttonIcon">X</span>
-        </button>
-      </div>
+      {!disabled && (
+        <div className="inputActions">
+          <button onMouseDown={handleSave} className="button save">
+            <span className="buttonIcon">V</span>
+          </button>
+          <button onMouseDown={onClose} className="button remove">
+            <span className="buttonIcon">X</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

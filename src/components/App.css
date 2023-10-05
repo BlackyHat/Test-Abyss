@@ -22,6 +22,11 @@ input:disabled {
   background-color: rgb(201, 90, 16);
 }
 
+.button:disabled {
+  color: rgb(253, 253, 253);
+  background-color: rgb(59, 59, 59);
+}
+
 .wrapper {
   display: flex;
   justify-content: center;
@@ -46,7 +51,7 @@ input:disabled {
   background-color: rgb(67, 67, 145);
 }
 
-.button {
+button {
   border-radius: 50%;
   background-color: grey;
   color: #ffffff;
@@ -69,7 +74,7 @@ input:disabled {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.add,
+
 .save {
   background-color: #17c517;
 }
@@ -81,8 +86,7 @@ input:disabled {
   background-color: #169616;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-.remove,
-.edit {
+.remove {
   background-color: #ffc107;
 }
 .remove:hover,
