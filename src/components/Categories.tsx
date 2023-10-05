@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { ICategory } from './App';
+import React, { useContext, useState } from 'react';
+import { CategoryContext, ICategory } from '../../context/CategoryContext';
+
 import Input from './Input';
 
 interface INestedState {
@@ -7,74 +8,79 @@ interface INestedState {
 }
 interface ICategoriesProps {
   data: ICategory[];
+  parentId?: number;
 }
-const RecursiveCategories: React.FC<ICategoriesProps> = ({ data }) => {
+
+const RecursiveCategories: React.FC<ICategoriesProps> = ({
+  data,
+  parentId,
+}) => {
   const [showNested, setShowNested] = useState<INestedState>({});
   const [activeInput, setActiveInput] = useState<INestedState>({});
+  const { deleteCategory } = useContext(CategoryContext);
 
   if (data.length === 0) {
     return null;
   }
 
-  const toggleNested = (label: string) => {
-    setShowNested({ ...showNested, [label]: !showNested[label] });
+  const toggleNested = (id: number) => {
+    setShowNested({ ...showNested, [id]: !showNested[id] });
   };
 
-  const toggleActiveInput = (label: string) => {
-    setActiveInput({ ...activeInput, [label]: !activeInput[label] });
-  };
-
-  const addCategory = () => {
-    return;
+  const toggleActiveInput = (id: number) => {
+    setActiveInput({ ...activeInput, [id]: !activeInput[id] });
   };
 
   return (
     <>
-      {data.map(({ label, subCategories }, idx) => (
-        <div key={idx} className="card" style={{ border: '1px solid red' }}>
+      {data.map(({ id, label, subCategories }) => (
+        <li key={id} className="card" style={{ border: '1px solid red' }}>
           <div className="category_wrapper">
             <Input
-              disabled={!activeInput[label]}
+              disabled={!activeInput[id]}
               initValue={label}
-              onClose={() => {}}
-              addCategory={() => {}}
+              categoryId={id}
+              parentId={parentId}
+              onClose={() => toggleActiveInput(id)}
             />
-            {!activeInput[label] && (
+            {!activeInput[id] && (
               <div className="actions">
                 <button
-                  onClick={() => toggleNested(label)}
+                  onClick={() => toggleNested(id)}
                   className="button add"
                   disabled={activeInput[label]}
                 >
                   <span className="buttonIcon">+</span>
                 </button>
                 <button
-                  onClick={() => toggleActiveInput(label)}
+                  onClick={() => toggleActiveInput(id)}
                   className="button edit"
                 >
                   <span className="buttonIcon">/</span>
                 </button>
-                <button onClick={() => {}} className="button delete">
+                <button
+                  onClick={() => deleteCategory({ id })}
+                  className="button delete"
+                >
                   <span className="buttonIcon">X</span>
                 </button>
               </div>
             )}
           </div>
-          <ul className="subcategories list">
-            {subCategories.length > 0 && (
-              <RecursiveCategories data={subCategories} />
-            )}
+          {(showNested[id] || subCategories.length > 0) && (
+            <ul className="subcategories list">
+              {subCategories.length > 0 && (
+                <RecursiveCategories data={subCategories} />
+              )}
 
-            {showNested[label] && (
-              <div className="card" style={{ border: '1px solid red' }}>
-                <Input
-                  onClose={() => toggleNested(label)}
-                  addCategory={addCategory}
-                />
-              </div>
-            )}
-          </ul>
-        </div>
+              {showNested[id] && (
+                <li className="card" style={{ border: '1px solid red' }}>
+                  <Input onClose={() => toggleNested(id)} parentId={id} />
+                </li>
+              )}
+            </ul>
+          )}
+        </li>
       ))}
     </>
   );

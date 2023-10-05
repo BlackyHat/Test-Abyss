@@ -1,19 +1,32 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CategoryContext } from '../../context/CategoryContext';
+
 interface InputProps {
   onClose: () => void;
-  addCategory: (v: string) => void;
   disabled?: boolean;
   initValue?: string;
+  categoryId?: number;
+  parentId?: number;
 }
+
 const Input: React.FC<InputProps> = ({
   onClose,
-  addCategory,
   disabled,
   initValue,
+  categoryId,
+  parentId,
 }) => {
   const [value, setValue] = useState(initValue || '');
+  const { addCategory, updateCategory } = useContext(CategoryContext);
+
   const handleSave = () => {
-    addCategory(value);
+    if (!categoryId) {
+      const newCategory = { id: Date.now(), label: value, subCategories: [] };
+      addCategory({ newCategory, parentId });
+    } else {
+      const newCategory = { id: categoryId, label: value };
+      updateCategory(newCategory);
+    }
     onClose();
   };
 

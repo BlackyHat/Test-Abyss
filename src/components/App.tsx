@@ -1,51 +1,15 @@
-import { useState } from 'react';
-import './App.css';
+import { useState, useContext } from 'react';
 import RecursiveCategories from './Categories';
+
 import Input from './Input';
+import { CategoryContext } from '../../context/CategoryContext';
 
-export interface ICategory {
-  label: string;
-  subCategories: ICategory[];
-}
-
-// const initialState = { label: 'Categories', subCategories: [] };
+import './App.css';
 
 function App() {
-  const [categories, setCategories] = useState<ICategory[]>([
-    { label: 'Categories1', subCategories: [] },
-    { label: 'Categories5', subCategories: [] },
-    {
-      label: 'CategoriesLast',
-      subCategories: [
-        { label: 'Last1', subCategories: [] },
-        {
-          label: 'Last2',
-          subCategories: [{ label: 'Last1', subCategories: [] }],
-        },
-        // {
-        //   label: 'Last3',
-        //   subCategories: [
-        //     {
-        //       label: '2023',
-        //       subCategories: [
-        //         {
-        //           label: '1962',
-        //           subCategories: [{ label: 'Last22', subCategories: [] }],
-        //         },
-        //       ],
-        //     },
-        //   ],
-        // },
-      ],
-    },
-  ]);
   const [showNested, setShowNested] = useState(false);
+  const { categories } = useContext(CategoryContext);
 
-  const addCategory = (label: string) => {
-    console.log('LABEL', label);
-
-    setCategories((prevCats) => [...prevCats, { label, subCategories: [] }]);
-  };
   const toggleNested = () => {
     setShowNested(!showNested);
   };
@@ -57,7 +21,7 @@ function App() {
           <p className="label">Categories</p>
           <div className="actions main">
             <button
-              onClick={toggleNested} //TODO:
+              onClick={toggleNested}
               className="button add"
               aria-label="Add category"
             >
@@ -66,13 +30,14 @@ function App() {
           </div>
         </div>
       </div>
+
       <section>
-        <ul className="subcategories list">
+        <ul className="list">
           <RecursiveCategories data={categories} />
           {showNested && (
-            <div className="card" style={{ border: '1px solid red' }}>
-              <Input onClose={toggleNested} addCategory={addCategory} />
-            </div>
+            <li className="card" style={{ border: '1px solid red' }}>
+              <Input onClose={toggleNested} />
+            </li>
           )}
         </ul>
       </section>
