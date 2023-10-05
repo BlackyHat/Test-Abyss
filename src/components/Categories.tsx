@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { CategoryContext, ICategory } from '../../context/CategoryContext';
-
+import AddIcon from '../assets/add.svg?react';
+import EditIcon from '../assets/edit.svg?react';
+import DeleteIcon from '../assets/delete.svg?react';
 import Input from './Input';
+import Button from './Button';
 
 interface INestedState {
   [key: string]: boolean;
@@ -34,7 +37,7 @@ const RecursiveCategories: React.FC<ICategoriesProps> = ({
   return (
     <>
       {data.map(({ id, label, subCategories }) => (
-        <li key={id} className="card" style={{ border: '1px solid red' }}>
+        <li key={id} className="card" style={{ outline: '1px solid grey' }}>
           <div className="category_wrapper">
             <Input
               disabled={!activeInput[id]}
@@ -44,27 +47,36 @@ const RecursiveCategories: React.FC<ICategoriesProps> = ({
               onClose={() => toggleActiveInput(id)}
             />
             {!activeInput[id] && (
-              <div className="actions">
-                <button
-                  onClick={() => toggleNested(id)}
-                  className="button add"
-                  disabled={activeInput[label]}
-                >
-                  <span className="buttonIcon">+</span>
-                </button>
-                <button
-                  onClick={() => toggleActiveInput(id)}
-                  className="button edit"
-                >
-                  <span className="buttonIcon">/</span>
-                </button>
-                <button
-                  onClick={() => deleteCategory({ id })}
-                  className="button delete"
-                >
-                  <span className="buttonIcon">X</span>
-                </button>
-              </div>
+              <ul className="actions">
+                <li>
+                  <Button
+                    onClick={() => toggleNested(id)}
+                    className="add"
+                    ariaLabel="Add the category"
+                    disabled={activeInput[id]}
+                  >
+                    <AddIcon className="buttonIcon" />
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    onClick={() => toggleActiveInput(id)}
+                    className="edit"
+                    ariaLabel="Edit the category"
+                  >
+                    <EditIcon className="buttonIcon" />
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    onClick={() => deleteCategory({ id })}
+                    className="delete"
+                    ariaLabel="Delete the category"
+                  >
+                    <DeleteIcon className="buttonIcon" />
+                  </Button>
+                </li>
+              </ul>
             )}
           </div>
           {(showNested[id] || subCategories.length > 0) && (

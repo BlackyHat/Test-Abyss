@@ -1,5 +1,8 @@
 import { useContext, useState } from 'react';
 import { CategoryContext } from '../../context/CategoryContext';
+import CheckIcon from '../assets/check.svg?react';
+import DeleteIcon from '../assets/delete.svg?react';
+import Button from './Button';
 
 interface InputProps {
   onClose: () => void;
@@ -44,14 +47,26 @@ const Input: React.FC<InputProps> = ({
         onChange={(e) => setValue(e.target.value.trim())}
       />
       {!disabled && (
-        <div className="inputActions">
-          <button onMouseDown={handleSave} className="button save">
-            <span className="buttonIcon">V</span>
-          </button>
-          <button onMouseDown={onClose} className="button remove">
-            <span className="buttonIcon">X</span>
-          </button>
-        </div>
+        <ul className="inputActions">
+          <li>
+            <Button
+              onClick={onClose}
+              className="remove"
+              ariaLabel="Abort the input"
+            >
+              <DeleteIcon className="buttonIcon" />
+            </Button>
+          </li>
+          <li>
+            <Button
+              action={handleSave}
+              className="save"
+              ariaLabel="Save the category"
+            >
+              <CheckIcon className="buttonIcon" />
+            </Button>
+          </li>
+        </ul>
       )}
     </div>
   );

@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react';
 import RecursiveCategories from './Categories';
-
-import Input from './Input';
 import { CategoryContext } from '../../context/CategoryContext';
 
+import Input from './Input';
+import Button from './Button';
+import AddIcon from '../assets/add.svg?react';
 import './App.css';
 
 function App() {
@@ -20,13 +21,13 @@ function App() {
         <div className="category_wrapper">
           <p className="label">Categories</p>
           <div className="actions main">
-            <button
+            <Button
               onClick={toggleNested}
-              className="button add"
-              aria-label="Add category"
+              className="add"
+              ariaLabel="Add the category"
             >
-              <span className="buttonIcon">+</span>
-            </button>
+              <AddIcon className="buttonIcon" />
+            </Button>
           </div>
         </div>
       </div>
@@ -35,7 +36,7 @@ function App() {
         <ul className="list">
           <RecursiveCategories data={categories} />
           {showNested && (
-            <li className="card" style={{ border: '1px solid red' }}>
+            <li className="card" style={{ outline: '1px solid grey' }}>
               <Input onClose={toggleNested} />
             </li>
           )}
