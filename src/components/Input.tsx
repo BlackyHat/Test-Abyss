@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { CategoryContext } from '../../context/CategoryContext';
+import { CategoryContext } from '../context/CategoryContext';
 import CheckIcon from '../assets/check.svg?react';
 import DeleteIcon from '../assets/delete.svg?react';
 import Button from './Button';
@@ -34,7 +34,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className="category_wrapper">
+    <div className="inner">
       <input
         className="input"
         placeholder="Category name"

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { CategoryContext, ICategory } from '../../context/CategoryContext';
+import { CategoryContext, ICategory } from '../context/CategoryContext';
 import AddIcon from '../assets/add.svg?react';
 import EditIcon from '../assets/edit.svg?react';
 import DeleteIcon from '../assets/delete.svg?react';
@@ -37,8 +37,8 @@ const RecursiveCategories: React.FC<ICategoriesProps> = ({
   return (
     <>
       {data.map(({ id, label, subCategories }) => (
-        <li key={id} className="card" style={{ outline: '1px solid grey' }}>
-          <div className="category_wrapper">
+        <li key={id} className="card">
+          <div className="inner">
             <Input
               disabled={!activeInput[id]}
               initValue={label}
@@ -80,13 +80,13 @@ const RecursiveCategories: React.FC<ICategoriesProps> = ({
             )}
           </div>
           {(showNested[id] || subCategories.length > 0) && (
-            <ul className="subcategories list">
+            <ul className="subcategories">
               {subCategories.length > 0 && (
                 <RecursiveCategories data={subCategories} />
               )}
 
               {showNested[id] && (
-                <li className="card" style={{ border: '1px solid red' }}>
+                <li className="card">
                   <Input onClose={() => toggleNested(id)} parentId={id} />
                 </li>
               )}

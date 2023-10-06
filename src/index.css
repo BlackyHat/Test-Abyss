@@ -41,10 +41,165 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+  text-align: center;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #eceaea;
   }
+}
+.button {
+  border-radius: 50%;
+  background-color: grey;
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  box-shadow: rgba(169, 171, 174, 0.2) 0px 8px 24px;
+  transition: background-color ease-in-out 350ms, box-shadow ease-in-out 350ms;
+}
+.input {
+  text-transform: capitalize;
+  padding: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  border: 1px solid grey;
+  color: rgb(59, 59, 59);
+  outline: none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  border-radius: 8px;
+}
+
+.input:disabled {
+  color: rgb(253, 253, 253);
+  background-color: rgb(201, 90, 16);
+}
+
+.button:disabled {
+  color: rgb(253, 253, 253);
+  background-color: rgb(59, 59, 59);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.inner {
+  position: relative;
+  width: fit-content;
+}
+
+.label {
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.label.category {
+  color: rgb(253, 253, 253);
+  background-color: rgb(201, 90, 16);
+}
+
+.buttonIcon {
+  width: 22px;
+  height: 22px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.save {
+  background-color: #17c517;
+}
+
+.add:hover,
+.save:hover,
+.add:focus,
+.save:focus {
+  background-color: #169616;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.remove {
+  background-color: #ffc107;
+}
+.remove:hover,
+.edit:hover,
+.remove:focus,
+.edit:focus {
+  background-color: #b48805;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.delete {
+  background-color: rgb(152, 20, 20);
+}
+.delete:hover,
+.delete:focus {
+  background-color: rgb(111, 15, 15);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.actions,
+.inputActions {
+  position: absolute;
+  right: -106px;
+  top: 50%;
+  transform: translateY(-50%);
+  gap: 4px;
+  display: flex;
+}
+.actions.main {
+  right: -40px;
+}
+.inputActions {
+  right: -72px;
+}
+
+.list,
+.card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  padding-right: 116px;
+}
+.card {
+  flex-direction: column;
+}
+.list {
+  padding: 32px;
+  column-gap: 24px;
+  justify-content: flex-start;
+  align-items: baseline;
+  position: absolute;
+  top: 50px;
+  transform: translateX(-50%);
+}
+.subcategories {
+  padding: 24px;
+  column-gap: 24px;
+  justify-content: flex-start;
+  align-items: baseline;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 16px;
 }

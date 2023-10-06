@@ -3,7 +3,7 @@ import {
   addCategoryRecursive,
   deleteCategoryRecursive,
   updateCategoryRecursive,
-} from '../src/utils/updateCategories';
+} from '../utils/updateCategories';
 
 export interface ICategory {
   id: number;
@@ -69,15 +69,25 @@ function categoryReducer(
   switch (action.type) {
     case 'ADD': {
       const { newCategory, parentId } = action.payload;
-      return addCategoryRecursive(newCategory, state, parentId);
+      const updatedCategories = addCategoryRecursive(
+        newCategory,
+        state,
+        parentId
+      );
+      localStorage.setItem('categories', JSON.stringify(updatedCategories));
+      return updatedCategories;
     }
     case 'UPDATE': {
       const { label, id } = action.payload;
-      return updateCategoryRecursive(label, id, state);
+      const updatedCategories = updateCategoryRecursive(label, id, state);
+      localStorage.setItem('categories', JSON.stringify(updatedCategories));
+      return updatedCategories;
     }
     case 'DELETE': {
       const { id: categoryId } = action.payload;
-      return deleteCategoryRecursive(categoryId, state);
+      const updatedCategories = deleteCategoryRecursive(categoryId, state);
+      localStorage.setItem('categories', JSON.stringify(updatedCategories));
+      return updatedCategories;
     }
     default:
       return state;

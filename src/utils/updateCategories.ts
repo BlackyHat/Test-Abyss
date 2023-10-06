@@ -1,4 +1,4 @@
-import { ICategory } from '../../context/CategoryContext';
+import { ICategory } from '../context/CategoryContext';
 
 export const addCategoryRecursive = (
   newCategory: ICategory,

@@ -1,11 +1,10 @@
 import { useState, useContext } from 'react';
 import RecursiveCategories from './Categories';
-import { CategoryContext } from '../../context/CategoryContext';
+import { CategoryContext } from '../context/CategoryContext';
 
 import Input from './Input';
 import Button from './Button';
 import AddIcon from '../assets/add.svg?react';
-import './App.css';
 
 function App() {
   const [showNested, setShowNested] = useState(false);
@@ -18,7 +17,7 @@ function App() {
   return (
     <>
       <div className="wrapper">
-        <div className="category_wrapper">
+        <div className="inner">
           <p className="label">Categories</p>
           <div className="actions main">
             <Button
@@ -32,16 +31,14 @@ function App() {
         </div>
       </div>
 
-      <section>
-        <ul className="list">
-          <RecursiveCategories data={categories} />
-          {showNested && (
-            <li className="card" style={{ outline: '1px solid grey' }}>
-              <Input onClose={toggleNested} />
-            </li>
-          )}
-        </ul>
-      </section>
+      <ul className="list">
+        <RecursiveCategories data={categories} />
+        {showNested && (
+          <li className="card">
+            <Input onClose={toggleNested} />
+          </li>
+        )}
+      </ul>
     </>
   );
 }
