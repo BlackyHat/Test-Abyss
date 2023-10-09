@@ -189,9 +189,6 @@ body {
   column-gap: 24px;
   justify-content: flex-start;
   align-items: baseline;
-  position: absolute;
-  top: 50px;
-  transform: translateX(-50%);
 }
 .subcategories {
   padding: 24px;

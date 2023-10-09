@@ -22,6 +22,8 @@ const Input: React.FC<InputProps> = ({
   const [value, setValue] = useState(initValue || '');
   const { addCategory, updateCategory } = useContext(CategoryContext);
 
+  console.log('INPUT');
+
   const handleSave = () => {
     if (!categoryId) {
       const newCategory = { id: Date.now(), label: value, subCategories: [] };
